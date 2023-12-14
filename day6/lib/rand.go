@@ -7,7 +7,7 @@ import (
 
 // 随机数生成器
 
-func main() {
+func main2() {
 	//创建一个Rand
 	source := rand.NewSource(1) //seed相同的情况下,随机数生成器产生的数列是相同的
 	rander := rand.New(source)
