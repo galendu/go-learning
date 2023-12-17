@@ -5,7 +5,6 @@ go 1.19
 require (
 	github.com/bytedance/sonic v1.10.2
 	github.com/golang/glog v1.2.0
-	github.com/klauspost/compress v1.17.4
 )
 
 require (

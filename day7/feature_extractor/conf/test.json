@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "path": "Seller.Name",
+      "discretize": "uniq",
+      "hash": "murmur",
+      "DiscretizeFunc": null
+    },
+    {
+      "id": 2,
+      "path": "Seller.Age",
+      "discretize": "bin 18,25,30,35,40,50,60",
+      "hash": "farm",
+      "DiscretizeFunc": null
+    }
+  ]
