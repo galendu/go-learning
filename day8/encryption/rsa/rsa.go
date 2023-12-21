@@ -1,6 +1,15 @@
 package main
 
-import "os"
+import (
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/hex"
+	"encoding/pem"
+	"errors"
+	"fmt"
+	"os"
+)
 
 /**
 生成1024位的RSA私钥：
@@ -37,4 +46,48 @@ func ReadRSAKey(publicKeyFile, privateKeyFile string) (err error) {
 		return err
 	}
 	return
+}
+
+// RSA加密
+func RsaEncrypt(origData []byte) ([]byte, error) {
+	//解密pem格式的公钥
+	block, _ := pem.Decode(publicKey)
+	if block == nil {
+		return nil, errors.New("public key error")
+	}
+	// 解析公钥
+	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes) //目前的数字证书一般都是基于ITU(国际电信联盟)指定的X.509标准
+	if err != nil {
+		return nil, err
+	}
+	// 类型断言
+	pub := pubInterface.(*rsa.PublicKey)
+	// 加密
+	return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)
+}
+
+// RSA解密
+func RsaDecrypt(ciphertext []byte) ([]byte, error) {
+	//解密
+	block, _ := pem.Decode(privateKey)
+	if block == nil {
+		return nil, errors.New(string(privateKey))
+	}
+	//解析PKCS1格式的私钥
+	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+	// 解密
+	return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)
+}
+
+func main() {
+	ReadRSAKey("data/rsa_public_key.pem", "data/rsa_private_key.pem")
+
+	plain := "因为我们没有什么不同"
+	cipher, _ := RsaEncrypt([]byte(plain))
+	fmt.Printf("密文: %s\n", hex.EncodeToString(cipher))
+	bPlain, _ := RsaDecrypt(cipher)
+	fmt.Printf("明文: %s\n", string(bPlain))
 }
