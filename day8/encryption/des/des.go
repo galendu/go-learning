@@ -99,7 +99,7 @@ func DesDecryptCBC(text string, key []byte) (string, error) {
 	return string(out), nil
 }
 
-func main() {
+func main2() {
 	plain := "ABCD"
 	key := []byte{1, 2, 3, 4}
 	cipher := XOR(plain, key)

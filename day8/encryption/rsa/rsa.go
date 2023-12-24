@@ -82,7 +82,7 @@ func RsaDecrypt(ciphertext []byte) ([]byte, error) {
 	return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)
 }
 
-func main() {
+func main5() {
 	ReadRSAKey("data/rsa_public_key.pem", "data/rsa_private_key.pem")
 
 	plain := "因为我们没有什么不同"

@@ -36,7 +36,7 @@ func ECCDecrypt(cipher []byte, prvKey *ecies.PrivateKey) (string, error) {
 		return string(src), nil
 	}
 }
-func main() {
+func main3() {
 	prvKey, err := genPrivateKey()
 	if err != nil {
 		log.Fatal(err)

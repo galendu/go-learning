@@ -39,7 +39,7 @@ func AesDecrypt(text string, key []byte) (string, error) {
 	return string(out), nil
 }
 
-func main() {
+func main1() {
 	key := []byte("ir489u96ir489u54") //key必须是长度为16的byte数组
 	plain := "因为我们没有什么不同"
 	cipher, err := AesEncrypt(plain, key)

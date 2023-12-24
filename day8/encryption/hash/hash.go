@@ -20,7 +20,7 @@ func Md5(data string) string {
 	return hex.EncodeToString(md5.Sum(nil))
 }
 
-func main() {
+func main4() {
 	data := "因为我们没有什么不同"
 	sha256 := sha256.New()
 
