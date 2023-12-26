@@ -1,5 +1,6 @@
 package main
 
 func main() {
-	testLRU()
+	// testLRU()
+	testTimeoutCache()
 }
