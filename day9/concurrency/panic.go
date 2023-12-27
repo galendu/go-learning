@@ -19,7 +19,7 @@ func F() {
 	defer fmt.Println("55555")
 	fmt.Println("FFFFFFFFFFFFFFFFFFFFFFFF")
 }
-func main() {
+func main4() {
 
 	go F() //G 4 3 2 1 ops
 	time.Sleep(time.Second)
