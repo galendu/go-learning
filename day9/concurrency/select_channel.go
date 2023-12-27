@@ -31,7 +31,7 @@ func abort(ch chan struct{}) {
 	ch <- struct{}{}
 }
 
-func main() {
+func main10() {
 
 	countCh := make(chan int)
 	finishCh := make(chan struct{})
