@@ -1,15 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
+
+var cloch = make(chan int, 1)
+var cloch2 = make(chan int, 1)
+
+func traverseChannel() {
+	for ele := range cloch {
+		fmt.Printf("receive %d\n", ele)
+	}
+	fmt.Println()
+}
+
+func traverseChannel2() {
+	for {
+		if ele, ok := <-cloch2; ok { //ok==true代表管道还没有close
+			fmt.Printf("receive %d\n", ele)
+		} else { //管道关闭后,读操作会立即返回"0值"
+			fmt.Printf("channel have been closed, receive %d\n", ele)
+			break
+		}
+	}
+}
 
 func main5() {
-	c := make(chan int, 2)
-	c <- 1
-	c <- 2
-	close(c)
-	for ele := range c {
-		fmt.Println(ele)
-	}
-	v := <-c //close channel 之后,读操作总是会立即返回,如果channel里已没有元素,则返回'0'值
-	fmt.Println(v)
+	cloch <- 1
+	close(cloch)
+	traverseChannel() //如果不close就直接通过range遍历管道,会发生fatal error: all goroutines are asleep - deadlock!
+	fmt.Println("==============")
+	go traverseChannel2()
+	cloch2 <- 1
+	close(cloch2)
+	time.Sleep(10 * time.Millisecond)
 }
