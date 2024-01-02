@@ -20,6 +20,9 @@ func GirlHandler(w http.ResponseWriter, r *http.Request) {
 	for k, v := range r.Header {
 		fmt.Printf("%s=%v\n", k, v)
 	}
+	for _, cookie := range r.Cookies() {
+		fmt.Printf("%s=%s\n", cookie.Name, cookie.Value)
+	}
 	fmt.Fprint(w, "Welcome to jafardu server by girl")
 
 }
