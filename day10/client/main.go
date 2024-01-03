@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
 func get() {
-	resp, err := http.Get("http://127.0.0.1:8088/file/a.html")
+	resp, err := http.Get("http://127.0.0.1:8088")
 	if err != nil {
 		panic(err)
 	}
@@ -76,7 +77,15 @@ func complexHttpRequest() {
 	}
 }
 func main() {
-	get()
+	wg := sync.WaitGroup{}
+	wg.Add(200)
+	for i := 0; i < 200; i++ {
+		go func() {
+			defer wg.Done()
+			get()
+		}()
+	}
+	wg.Wait()
 	// post()
 	// complexHttpRequest()
 }
