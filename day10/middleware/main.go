@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var limitCh = make(chan struct{}, 100)
+var limitCh = make(chan struct{}, 100) //最多并发处理100个请求
 
 func timeMiddleWare(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {

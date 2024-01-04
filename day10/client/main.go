@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -28,7 +27,8 @@ func post() {
 
 	reader := strings.NewReader("hello server")
 	// resp, err := http.Post("http://127.0.0.1:8088/girl", "text/plain", reader)
-	resp, err := http.Post("http://127.0.0.1:8088/user/zcy/vip/gs/pingliang", "text/plain", reader)
+	// resp, err := http.Post("http://127.0.0.1:8088/user/zcy/vip/gs/pingliang", "text/plain", reader)
+	resp, err := http.Post("http://book.jafardu.com:5656", "text/plain", reader)
 
 	if err != nil {
 		panic(err)
@@ -77,15 +77,15 @@ func complexHttpRequest() {
 	}
 }
 func main() {
-	wg := sync.WaitGroup{}
-	wg.Add(200)
-	for i := 0; i < 200; i++ {
-		go func() {
-			defer wg.Done()
-			get()
-		}()
-	}
-	wg.Wait()
-	// post()
+	// wg := sync.WaitGroup{}
+	// wg.Add(200)
+	// for i := 0; i < 200; i++ {
+	// 	go func() {
+	// 		defer wg.Done()
+	// 		post()
+	// 	}()
+	// }
+	// wg.Wait()
+	post()
 	// complexHttpRequest()
 }
